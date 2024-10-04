@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.hc.core5.util.Args;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,10 +36,20 @@ public class PilotController {
         }
     }
 
-    @GetMapping("/search/{licenseNumber}")
-    public ResponseEntity <Pilot> searchPilotByLicense(@PathVariable long licenseNumber){
+    @GetMapping("/search")
+    public ResponseEntity <Pilot> searchPilotByLicense(@RequestParam Long licenseNumber){
+        if (licenseNumber == null){
+            return new ResponseEntity<Pilot>(HttpStatus.NO_CONTENT);
+        }
+
         Pilot pilot = this.pilotService.getPilotByLicense(licenseNumber);
-        return new ResponseEntity<Pilot>(pilot,HttpStatus.OK);
+
+        if (pilot != null) {
+            return new ResponseEntity<Pilot>(pilot, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<Pilot>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @PostMapping("/regist")

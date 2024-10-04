@@ -23,7 +23,7 @@ public class AircraftController {
 
         if (AircraftList.isEmpty())
         {
-            return new ResponseEntity<>(AircraftList, HttpStatus.NO_CONTENT);//204 no es error
+            return new ResponseEntity<>(AircraftList,HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(AircraftList,HttpStatus.OK);
         }

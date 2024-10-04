@@ -1,5 +1,6 @@
 package com.flyubro.core_service.service;
 
+import com.flyubro.core_service.exception.PilotNotFoundException;
 import com.flyubro.core_service.model.Pilot;
 import com.flyubro.core_service.repository.PilotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,8 @@ public class PilotService {
         return this.pilotRepository.findAll();
     }
     public Pilot getPilotByLicense (long licenseNumber){
-        return this.pilotRepository.findByLicenseNumber(licenseNumber).orElseThrow(() -> new RuntimeException("Pilot not found"));
+        return this.pilotRepository.findByLicenseNumber(licenseNumber)
+                .orElseThrow((PilotNotFoundException::new));
     }
 
     public void registPilot (Pilot pilot){

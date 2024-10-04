@@ -10,34 +10,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class LeasingService {
 
     private LeasingRepository leasingRepository;
     private AircraftRepository aircraftRepository;
-    //private PilotRepository pilotRepository;
 
     @Autowired
     public LeasingService (LeasingRepository leasingRepository, AircraftRepository aircraftRepository/*,PilotRepository pilotRepository*/){
         this.leasingRepository = leasingRepository;
         this.aircraftRepository = aircraftRepository;
-        //this.pilotRepository = pilotRepository;
     }
 
     public List<Leasing> getAllLeasing (){
         return this.leasingRepository.findAll();
     }
 
-    public Leasing contractLeasing(Aircraft aircraft, Pilot pilot, Integer leaseHours ){//
+    public Leasing contractLeasing(Aircraft aircraft, Pilot pilot, Integer leaseHours ){
 
         Aircraft reqAircraft = aircraftRepository.findAircraftByRegistration(aircraft.getAircraftReg())
                 .orElseThrow(AircraftNotFoundException::new);
 
         double finalPrice = aircraft.getPriceHouer() * leaseHours;
 
-        // Crea un nuevo contrato de leasing
         Leasing leasing = new Leasing();
         leasing.setAircraft(reqAircraft);
         leasing.setPilot(pilot);

@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient (name = "core-service",url = "http://localhost:8060/IU-C", configuration = FeignClientConfig.class)
 public interface CoreClient {
     @GetMapping("/pilot/search")
-    public ResponseEntity<Pilot> searchPilotByLicense(@RequestParam long licenseNumber);
+    public ResponseEntity <Pilot> searchPilotByLicense(@RequestParam long licenseNumber);
 }

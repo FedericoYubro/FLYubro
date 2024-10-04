@@ -29,22 +29,20 @@ public class PilotController {
 
         if (pilotList.isEmpty())
         {
-            return new ResponseEntity<>(pilotList,HttpStatus.NO_CONTENT);//204 no es error
+            return new ResponseEntity<>(pilotList,HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(pilotList,HttpStatus.OK);
         }
     }
 
+    @GetMapping("/search/{licenseNumber}")
+    public ResponseEntity <Pilot> searchPilotByLicense(@PathVariable long licenseNumber){
+        Pilot pilot = this.pilotService.getPilotByLicense(licenseNumber);
+        return new ResponseEntity<Pilot>(pilot,HttpStatus.OK);
+    }
 
-
-    @Operation(summary = "Crea un nuevo producto", description = "Permite la creación de un nuevo producto en el sistema.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Producto creado con éxito", content = @Content(mediaType = "application/json")),
-            @ApiResponse(responseCode = "400", description = "Solicitud incorrecta.", content = @Content(mediaType = "application/json")),
-            @ApiResponse(responseCode = "409", description = "Conflicto, el producto ya existe.", content = @Content(mediaType = "application/json"))
-    })
     @PostMapping("/regist")
-    public ResponseEntity <String> registPilot(@RequestBody Pilot newPilot) {//con el request body le exijo todos los valores de la entidad
+    public ResponseEntity <String> registPilot(@RequestBody Pilot newPilot) {
         this.pilotService.registPilot(newPilot);
         return new ResponseEntity<>("Pilot Created",HttpStatus.CREATED);
     }

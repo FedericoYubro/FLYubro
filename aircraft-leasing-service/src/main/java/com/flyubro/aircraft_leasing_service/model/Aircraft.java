@@ -14,8 +14,14 @@ public class Aircraft {
     private Long aircraftId;
     @Column (name = "aircraft_registration")
     private String aircraftReg;
+    @Column (name = "aircraft_model")
+    private String aircraftModel;
+    @Column (name = "horse_power")
+    private Long hp;
     @Column (name = "autonomy")
-    private Long autonomy;
+    private double autonomy;
+    @Column (name = "seat")
+    private Long seat;
     @Column (name = "price_h")
     private Long priceHouer;
 }

@@ -15,6 +15,9 @@ public class PilotService {
     public List<Pilot> getAllPilots (){
         return this.pilotRepository.findAll();
     }
+    public Pilot getPilotByLicense (long licenseNumber){
+        return this.pilotRepository.findByLicenseNumber(licenseNumber).orElseThrow(() -> new RuntimeException("Pilot not found"));
+    }
 
     public void registPilot (Pilot pilot){
         this.pilotRepository.saveAndFlush(pilot);

@@ -1,4 +1,4 @@
-package com.flyubro.core_service.config;
+package com.flyubro.aircraft_leasing_service.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

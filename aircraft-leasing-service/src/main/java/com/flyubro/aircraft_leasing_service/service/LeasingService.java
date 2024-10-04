@@ -30,20 +30,17 @@ public class LeasingService {
         return this.leasingRepository.findAll();
     }
 
-    public Leasing contractLeasing(Aircraft aircraft, long licenseNumber, Integer leaseHours ){//
+    public Leasing contractLeasing(Aircraft aircraft, Pilot pilot, Integer leaseHours ){//
 
         Aircraft reqAircraft = aircraftRepository.findAircraftByRegistration(aircraft.getAircraftReg())
                 .orElseThrow(AircraftNotFoundException::new);
-
-        //Pilot pilot = pilotRepository.findByLicenseNumber(licenseNumber)
-        //        .orElseThrow(() -> new IllegalArgumentException("Pilot not found"));
 
         double finalPrice = aircraft.getPriceHouer() * leaseHours;
 
         // Crea un nuevo contrato de leasing
         Leasing leasing = new Leasing();
         leasing.setAircraft(reqAircraft);
-        //leasing.setPilot(pilot);
+        leasing.setPilot(pilot);
         leasing.setLeaseHours(leaseHours);
         leasing.setLeasePrice(finalPrice);
         return leasingRepository.save(leasing);
